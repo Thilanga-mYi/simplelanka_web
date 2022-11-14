@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -28,7 +29,7 @@ return new class extends Migration
             $table->integer('avg_rating')->default(6);
             $table->integer('avg_views')->default(0);
             $table->integer('avg_clicks')->default(0);
-            $table->tinyInteger('status')->default(1);
+            $table->enum('status', array_keys(Post::$status))->default(1);
             $table->timestamps();
         });
     }
