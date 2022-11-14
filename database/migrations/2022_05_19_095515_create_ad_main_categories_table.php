@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('ad_main_categories', function (Blueprint $table) {
             $table->id();
+            $table->enum('type', [1, 2, 3])->default(1); //1-Products / 2-Services / 3-Shops
             $table->string('name');
             $table->string('image');
             $table->tinyInteger('status')->default(1);
