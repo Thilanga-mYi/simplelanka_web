@@ -8,6 +8,8 @@ use App\Models\Media;
 use App\Models\Post;
 use App\Models\PostHasMedia;
 use Carbon\Carbon;
+use Error;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -33,6 +35,7 @@ class PostController extends Controller
                 'post_product_condition_group' => 'nullable|numeric',
                 'post_description' => 'required|string',
                 'post_main_image' => 'required|mimes:jpeg,png,jpg,webp',
+                'post_images.*' => 'required|mimes:jpeg,png,jpg,webp',
             ]);
 
             if ($validator->fails()) {
@@ -42,6 +45,9 @@ class PostController extends Controller
                     ->with('errors', $validator->errors()->all())
                     ->with('code', 400);
             }
+
+            error_log($request->post_images);
+            return 1;
 
             $post_data = [
                 'user_id' => auth()->user()->id,
@@ -61,9 +67,7 @@ class PostController extends Controller
 
             // MAIN IMAGES
             if ($mainFile = $request->file('post_main_image')) {
-                $imageName =  time() . $mainFile->getClientOriginalName();
-                $mainFile->move(public_path() . '/uploads/posts/', $imageName);
-
+                $imageName = resizeUploadImage($mainFile, '/uploads/posts/', env('THUMNAIL_PREFIX') . time(), env('THUMNAIL_HEIGHT'), env('THUMNAIL_WIDTH'));
                 $main_image_data = [
                     'user_id' => auth()->user()->id,
                     'image' => $imageName,
@@ -87,9 +91,7 @@ class PostController extends Controller
             if ($files = $request->file('post_images')) {
 
                 foreach ($files as $file) {
-
-                    $imageName =  time() . $file->getClientOriginalName();
-                    $file->move(public_path() . '/uploads/posts/', $imageName);
+                    $imageName = resizeUploadImage($file, '/uploads/posts/', env('PRODUCT_PREFIX') . time(), env('PRODUCT_HEIGHT'), env('PRODUCT_WIDTH'));
 
                     $featured_image_data = [
                         'user_id' => auth()->user()->id,
@@ -109,10 +111,6 @@ class PostController extends Controller
 
                     PostHasMedia::create($post_has_images);
                 }
-            } else {
-                return redirect('/register-user/ad-post')
-                    ->with('status', 'Please Add Some Post Images to Upload.')
-                    ->with('code', 500);
             }
 
             DB::commit();
@@ -191,8 +189,10 @@ class PostController extends Controller
             // return $data;
 
             return $records;
-        } catch (\Throwable $th) {
-            error_log($th);
+        } catch (Error $error) {
+            return $error->getMessage();
+        } catch (Exception $ex) {
+            return $ex->getMessage();
         }
     }
 }

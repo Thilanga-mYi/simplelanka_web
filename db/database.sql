@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `leyonex_simple_lanka_db`
+-- Database: `simplelanka_db`
 --
 
 -- --------------------------------------------------------
