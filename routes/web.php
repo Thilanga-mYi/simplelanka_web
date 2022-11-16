@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdMainCategoriesController;
+use App\Http\Controllers\Admin\Category\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
@@ -19,6 +21,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
+
+Route::prefix('/control/admin')->middleware(['auth', 'admin'])->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('admin.index');
+    Route::prefix('/enrollment')->group(function () {
+        Route::prefix('/category')->group(function () {
+            Route::get('/', [CategoryController::class, 'index'])->name('admin.enrollment.category');
+            Route::post('/add', [CategoryController::class, 'add'])->name('admin.enrollment.category.add');
+        });
+    });
+});
 
 Route::get('/', function () {
     return view('home');
