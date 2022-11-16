@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '777307dc32d4bcbdca3fc8ebe589c5d885e32015',
+        'reference' => '2c6c8fc5e86dd1ddc100053f7425f963fd3cd070',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -388,7 +388,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '777307dc32d4bcbdca3fc8ebe589c5d885e32015',
+            'reference' => '2c6c8fc5e86dd1ddc100053f7425f963fd3cd070',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -1257,6 +1257,15 @@
             'install_path' => __DIR__ . '/../tijsverkoyen/css-to-inline-styles',
             'aliases' => array(),
             'reference' => 'da444caae6aca7a19c0c140f68c6182e337d5b1c',
+            'dev_requirement' => false,
+        ),
+        'tucker-eric/eloquentfilter' => array(
+            'pretty_version' => '3.1.0',
+            'version' => '3.1.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../tucker-eric/eloquentfilter',
+            'aliases' => array(),
+            'reference' => 'b625272d374c2da5d800cd96d25e627746fea41d',
             'dev_requirement' => false,
         ),
         'vlucas/phpdotenv' => array(

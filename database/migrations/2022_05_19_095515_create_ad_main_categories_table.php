@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->enum('type', [1, 2, 3])->default(1); //1-Products / 2-Services / 3-Shops
             $table->string('name');
-            $table->string('image');
+            $table->string('image')->default('default.png');
+            $table->string('slug')->unique();
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });

@@ -10,7 +10,6 @@ class AdMainCategoriesController extends Controller
 {
     public function listSubCategories(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'id' => 'required|numeric|exists:ad_sub_categories,id',
         ]);

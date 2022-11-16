@@ -43,9 +43,9 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('admin.enrollment.category') }}"
-                                class="nav-link {{ route('admin.enrollment.category') == Request::url() ? 'active' : '' }}">
+                                class="nav-link {{ route('admin.enrollment.category') == Request::url() || route('admin.enrollment.category.manage') == Request::url()  ? 'active' : '' }}">
                                 <i class="fa fa-bars nav-icon"></i>
-                                <p>Categories</p>
+                                <p>Main Categories</p>
                             </a>
                         </li>
                     </ul>

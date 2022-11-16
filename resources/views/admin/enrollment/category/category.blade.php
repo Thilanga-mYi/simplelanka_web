@@ -6,44 +6,104 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h5 class="m-0">Categories</h5>
+                        <h5 class="m-0">Main Categories</h5>
                     </div>
                 </div>
+                @if (session('message'))
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class=" mt-4 alert alert-{{ session('color') }} alert-dismissible fade show" role="alert">
+                                {{ session('message') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="card card-info">
                             <div class="card-header">
-                                <h3 class="card-title">Category List</h3>
+                                <h3 class="card-title">Main Category List</h3>
                             </div>
                             <div class="card-body">
+
+                                <div class="mb-4 d-flex justify-content-between">
+
+                                    <div>
+                                        <div class="form-inline">
+                                            <form action="{{ Request::url() }}">
+                                                <input value="{{ Request::get('search') }}" class="form-control"
+                                                    placeholder="Search" name="search" type="text">
+                                                <button type="submit" class="btn btn-info ml-1"><i class="fa fa-search"
+                                                        aria-hidden="true"></i></button>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                    <div>
+                                        <div class="dropdown">
+                                            <button class="btn border-info dropdown-toggle" type="button" id="actions"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Actions
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="actions">
+                                                <a class="dropdown-item"
+                                                    href="{{ route('admin.enrollment.category.manage') }}">New Category</a>
+                                                <a class="dropdown-item" href="#">Export</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
                                 <div class="table-responsive">
-                                    <table id="example2" class="table table-bordered table-hover">
+                                    <table id="categoryTable" class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
-                                                <th>#</th>
-                                                <th>Category Code</th>
-                                                <th>Main Category</th>
-                                                <th>Sub Category</th>
+                                                <th>Image</th>
+                                                <th>Category Type</th>
+                                                <th>Category</th>
                                                 <th>Slug</th>
+                                                <th>Status</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>C001</td>
-                                                <td>-</td>
-                                                <td>Electronics</td>
-                                                <td>~ electronics</td>
-                                                <td>
-                                                    <button class="mx-2 btn btn-sm btn-warning text-white">Edit</button>
-                                                    <button class="mx-2 btn btn-sm btn-danger text-white">Delete</button>
-                                                </td>
-                                            </tr>
+                                            @forelse ($categories as $category)
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>{{ config('categoryTypes.' . $category->type) }}</td>
+                                                    <td>{{ $category->name }}</td>
+                                                    <td>{!! $category->slug ? '~ ' . $category->slug : '<span class="badge badge-sm badge-secondary">No Slug</span>' !!}</td>
+                                                    <td><span
+                                                            class="badge badge-sm badge-{{ config('statusColor.' . strtolower($category->status)) }}">{{ $category->status }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <div class="form-inline">
+                                                            <form method="GET"
+                                                                action="{{ route('admin.enrollment.category.manage') }}">
+                                                                <input type="hidden" name="record_id"
+                                                                    value="{{ $category->id }}">
+                                                                <button type="submit"
+                                                                    class="mx-2 btn btn-sm btn-warning text-white">Edit</button>
+                                                            </form>
+
+                                                            <button
+                                                                class="mx-2 btn btn-sm btn-danger text-white">Delete</button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td class="text-center" colspan="6">No Data Available</td>
+                                                </tr>
+                                            @endforelse
+
                                         </tbody>
                                         <tfoot>
                                             <tr>
@@ -56,11 +116,21 @@
                                             </tr>
                                         </tfoot>
                                     </table>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 pt-1">
+                                        <p>Showing {{ $categories->firstItem() }}-{{ $categories->count() }} of
+                                            {{ $categories->total() }}</p>
+                                    </div>
+                                    <div class="col-md-8 d-flex flex-row-reverse">
+                                        {{ $categories->links() }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    {{-- <div class="col-md-4">
                         <div class="card card-info">
                             <div class="card-header">
                                 <h3 class="card-title">Save / Update</h3>
@@ -120,7 +190,7 @@
                                 </div>
                             </form>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
 
             </div>

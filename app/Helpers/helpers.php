@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Session;
 
 function required_mark()
 {
-    return '<span class="text-danger"> *</span>';
+    return '<span class="text-danger pl-1">*</span>';
 }
 
 function doPermitted($checkarray)
