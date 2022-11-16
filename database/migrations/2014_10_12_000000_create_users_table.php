@@ -21,7 +21,7 @@ return new class extends Migration
             $table->tinyInteger('gender')->nullable(); #1: male / 2: female
             $table->string('mobile_number')->nullable();
             $table->string('email')->unique();
-            $table->integer('usertype_id')->default(3); #3 :shop_admin / 2:agent / 1:normal_user
+            $table->integer('usertype_id')->default(3); #3 :shop_admin / 2:agent / 1:normal_user / 4- Administrator
             $table->integer('district_id')->nullable();
             $table->string('address')->nullable();
             $table->string('city')->nullable();
