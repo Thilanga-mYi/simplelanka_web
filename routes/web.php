@@ -27,6 +27,7 @@ Route::prefix('/control/admin')->middleware(['auth', 'admin'])->group(function (
     Route::prefix('/enrollment')->group(function () {
         Route::prefix('/category')->group(function () {
             Route::get('/', [CategoryController::class, 'index'])->name('admin.enrollment.category');
+            Route::get('/manage', [CategoryController::class, 'manage'])->name('admin.enrollment.category.manage');
             Route::post('/add', [CategoryController::class, 'add'])->name('admin.enrollment.category.add');
         });
     });

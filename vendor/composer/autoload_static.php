@@ -146,6 +146,7 @@ class ComposerStaticInit8fec93bca4af89c6373315db6adcc292
         ),
         'E' => 
         array (
+            'EloquentFilter\\' => 15,
             'Egulias\\EmailValidator\\' => 23,
         ),
         'D' => 
@@ -456,6 +457,10 @@ class ComposerStaticInit8fec93bca4af89c6373315db6adcc292
         array (
             0 => __DIR__ . '/..' . '/facade/ignition-contracts/src',
         ),
+        'EloquentFilter\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tucker-eric/eloquentfilter/src',
+        ),
         'Egulias\\EmailValidator\\' => 
         array (
             0 => __DIR__ . '/..' . '/egulias/email-validator/src',
@@ -526,6 +531,8 @@ class ComposerStaticInit8fec93bca4af89c6373315db6adcc292
         'App\\Http\\Controllers\\AdMainCategoriesController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdMainCategoriesController.php',
         'App\\Http\\Controllers\\AdSubCategoriesController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdSubCategoriesController.php',
         'App\\Http\\Controllers\\AdTypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/AdTypeController.php',
+        'App\\Http\\Controllers\\Admin\\Category\\CategoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/Category/CategoryController.php',
+        'App\\Http\\Controllers\\Admin\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/DashboardController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
@@ -541,6 +548,7 @@ class ComposerStaticInit8fec93bca4af89c6373315db6adcc292
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Controllers\\UserTypesController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserTypesController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
+        'App\\Http\\Middleware\\Administrator' => __DIR__ . '/../..' . '/app/Http/Middleware/Administrator.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\PreventRequestsDuringMaintenance' => __DIR__ . '/../..' . '/app/Http/Middleware/PreventRequestsDuringMaintenance.php',
@@ -874,6 +882,11 @@ class ComposerStaticInit8fec93bca4af89c6373315db6adcc292
         'Egulias\\EmailValidator\\Warning\\QuotedString' => __DIR__ . '/..' . '/egulias/email-validator/src/Warning/QuotedString.php',
         'Egulias\\EmailValidator\\Warning\\TLD' => __DIR__ . '/..' . '/egulias/email-validator/src/Warning/TLD.php',
         'Egulias\\EmailValidator\\Warning\\Warning' => __DIR__ . '/..' . '/egulias/email-validator/src/Warning/Warning.php',
+        'EloquentFilter\\Commands\\MakeEloquentFilter' => __DIR__ . '/..' . '/tucker-eric/eloquentfilter/src/Commands/MakeEloquentFilter.php',
+        'EloquentFilter\\Filterable' => __DIR__ . '/..' . '/tucker-eric/eloquentfilter/src/Filterable.php',
+        'EloquentFilter\\LumenServiceProvider' => __DIR__ . '/..' . '/tucker-eric/eloquentfilter/src/LumenServiceProvider.php',
+        'EloquentFilter\\ModelFilter' => __DIR__ . '/..' . '/tucker-eric/eloquentfilter/src/ModelFilter.php',
+        'EloquentFilter\\ServiceProvider' => __DIR__ . '/..' . '/tucker-eric/eloquentfilter/src/ServiceProvider.php',
         'Facade\\IgnitionContracts\\BaseSolution' => __DIR__ . '/..' . '/facade/ignition-contracts/src/BaseSolution.php',
         'Facade\\IgnitionContracts\\HasSolutionsForThrowable' => __DIR__ . '/..' . '/facade/ignition-contracts/src/HasSolutionsForThrowable.php',
         'Facade\\IgnitionContracts\\ProvidesSolution' => __DIR__ . '/..' . '/facade/ignition-contracts/src/ProvidesSolution.php',
