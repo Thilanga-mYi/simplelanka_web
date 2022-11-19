@@ -50,6 +50,24 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.shop') }}"
+                        class="nav-link {{ route('admin.shop') == Request::url() ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-store"></i>
+                        <p>
+                            Manage Shops
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.ad') }}"
+                        class="nav-link {{ route('admin.ad') == Request::url() ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-image"></i>
+                        <p>
+                            Manage Posts
+                        </p>
+                    </a>
+                </li>
                 <div class="dropdown-divider my-4"></div>
                 <li class="nav-item">
                     <a href="#" class="nav-link">

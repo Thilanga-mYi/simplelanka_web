@@ -6,7 +6,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h5 class="m-0">Main Categories</h5>
+                        <h5 class="m-0">Shops</h5>
                     </div>
                 </div>
                 @if (session('message'))
@@ -29,7 +29,7 @@
                     <div class="col-md-12">
                         <div class="card card-info">
                             <div class="card-header">
-                                <h3 class="card-title">Main Category List</h3>
+                                <h3 class="card-title">Shops List</h3>
                             </div>
                             <div class="card-body">
 
@@ -54,8 +54,7 @@
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="actions">
                                                 <a class="dropdown-item"
-                                                    href="{{ route('admin.enrollment.category.manage') }}">New Category</a>
-                                                <a class="dropdown-item" href="#">Export</a>
+                                                    href="{{ route('admin.enrollment.category.manage') }}">New Shop</a>
                                             </div>
                                         </div>
                                     </div>
@@ -65,35 +64,35 @@
                                     <table id="categoryTable" class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
-                                                <th>Image</th>
-                                                <th>Category Type</th>
-                                                <th>Category</th>
-                                                <th>Slug</th>
+                                                <th>Logo</th>
+                                                <th>Shop Name</th>
+                                                <th>Register Number</th>
+                                                <th>Telephone 1</th>
                                                 <th>Status</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse ($categories as $category)
+                                            @forelse ($data as $shop)
                                                 <tr>
-                                                    <td class="text-center"><img class="table-img" src="{{ ($category->image)?asset('uploads/category/'.$category->image):asset('default.png') }}" alt=""></td>
-                                                    <td>{{ config('categoryTypes.' . $category->type) }}</td>
-                                                    <td>{{ $category->name }}</td>
-                                                    <td>{!! $category->slug ? '~ ' . $category->slug : '<span class="badge badge-sm badge-secondary">No Slug</span>' !!}</td>
+                                                    <td class="text-center"><img class="table-img" src="{{ ($shop->logo)?asset('uploads/shop/logo/'.$shop->logo):asset('default.png') }}" alt=""></td>
+                                                    <td>{{ $shop->name }}</td>
+                                                    <td>{{ $shop->register_no }}</td>
+                                                    <td>{{ $shop->tel1 }}</td>
                                                     <td><span
-                                                            class="badge badge-sm badge-{{ config('statusColor.' . strtolower($category->status)) }}">{{ $category->status }}</span>
+                                                            class="badge badge-sm badge-{{ config('statusColor.' . strtolower($shop->status)) }}">{{ $shop->status }}</span>
                                                     </td>
                                                     <td>
                                                         <div class="form-inline">
                                                             <form method="GET"
-                                                                action="{{ route('admin.enrollment.category.manage') }}">
+                                                                action="{{ route('admin.shop.approve') }}">
                                                                 <input type="hidden" name="record_id"
-                                                                    value="{{ $category->id }}">
+                                                                    value="{{ base64_encode($shop->id) }}">
                                                                 <button type="submit"
-                                                                    class="mx-2 btn btn-sm btn-warning text-white">Edit</button>
+                                                                    class="mx-2 btn btn-sm btn-warning text-white">Approve</button>
                                                             </form>
 
-                                                            <a href="{{ route('admin.enrollment.category.delete', base64_encode($category->id) ) }}"
+                                                            <a href="{{ route('admin.shop.delete', base64_encode($shop->id) ) }}"
                                                                 class="mx-2 btn btn-sm btn-danger text-white">Delete</a>
                                                         </div>
                                                     </td>
@@ -120,11 +119,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4 pt-1">
-                                        <p>Showing {{ $categories->firstItem() }}-{{ $categories->count() }} of
-                                            {{ $categories->total() }}</p>
+                                        <p>Showing {{ $data->firstItem() }}-{{ $data->count() }} of
+                                            {{ $data->total() }}</p>
                                     </div>
                                     <div class="col-md-8 d-flex flex-row-reverse">
-                                        {{ $categories->links() }}
+                                        {{ $data->links() }}
                                     </div>
                                 </div>
                             </div>

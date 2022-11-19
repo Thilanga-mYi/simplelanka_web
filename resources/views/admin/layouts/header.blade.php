@@ -19,3 +19,5 @@ href="{{ asset('admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootst
 <link rel="stylesheet" href="{{ asset('admin/plugins/daterangepicker/daterangepicker.css') }}">
 <!-- summernote -->
 <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.min.css') }}">
+
+<link rel="stylesheet" href="{{ asset('admin/css/admin.css') }}">
