@@ -3,5 +3,6 @@
 return [
     'active'=>'success',
     'inactive'=>'warning',
-    'deleted'=>'danger'
+    'deleted'=>'danger',
+    'pending'=>'info',
 ];

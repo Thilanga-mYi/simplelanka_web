@@ -11,7 +11,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $query = $request->all();
-        $categories = AdMainCategories::filter($query)->orderBy('created_at', 'DESC')->paginate(10);
+        $categories = AdMainCategories::getNotDeleted()->filter($query)->orderBy('created_at', 'DESC')->paginate(10);
         return view('admin.enrollment.category.category', compact('categories'));
     }
 
@@ -28,7 +28,7 @@ class CategoryController extends Controller
         return view('admin.enrollment.category.category-manage', compact('type', 'data', 'record_id'));
     }
 
-    public function add(Request $request)
+    public function enroll(Request $request)
     {
 
         $request->validate([
@@ -70,5 +70,11 @@ class CategoryController extends Controller
         }
 
         return redirect(route('admin.enrollment.category'))->with('color', ($request->process_type == 1) ? 'success' : 'warning')->with('message', 'Main Category Successfully ' . ($request->process_type == 1 ? 'Created' : 'Updated'));
+    }
+
+    public function delete(Request $request)
+    {
+        AdMainCategories::where('id', base64_decode($request->id))->update(['status' => 3]);
+        return redirect(route('admin.enrollment.category'))->with('color', 'danger')->with('message', 'Main Category Deleted ');
     }
 }

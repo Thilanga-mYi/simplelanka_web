@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,8 +10,9 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+    use Filterable;
 
-    public static $status = [1 => 'Active', 2 => 'Pending', 3 => 'Deleted'];
+    public static $status = [1 => 'Active', 2 => 'Inactive', 3 => 'Deleted', 4 => 'Pending'];
 
     protected $fillable = [
         'user_id',
@@ -29,25 +31,25 @@ class Post extends Model
         'status',
     ];
 
-    public static function getActive()
-    {
-        return self::where('status', 1);
-    }
-
-    public static function getPending()
-    {
-        return self::where('status', 2);
-    }
-
-    public static function getDeleted()
-    {
-        return self::where('status', 3);
-    }
-
     protected function status(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => Post::$status[$value],
-        );
+            get: fn ($value) => self::$status[$value],
+        );  
+    }
+
+    public static function getNotDeleted()
+    {
+        return self::where('status', '!=', 3);
+    }
+
+    public function mainCategory()
+    {
+        return $this->hasOne(AdMainCategories::class,'id','main_category');
+    }
+
+    public function subCategory()
+    {
+        return $this->hasOne(AdSubCategories::class,'id','sub_category');
     }
 }

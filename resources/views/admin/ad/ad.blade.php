@@ -6,7 +6,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h5 class="m-0">Main Categories</h5>
+                        <h5 class="m-0">Posts</h5>
                     </div>
                 </div>
                 @if (session('message'))
@@ -29,7 +29,7 @@
                     <div class="col-md-12">
                         <div class="card card-info">
                             <div class="card-header">
-                                <h3 class="card-title">Main Category List</h3>
+                                <h3 class="card-title">Post List</h3>
                             </div>
                             <div class="card-body">
 
@@ -54,8 +54,7 @@
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="actions">
                                                 <a class="dropdown-item"
-                                                    href="{{ route('admin.enrollment.category.manage') }}">New Category</a>
-                                                <a class="dropdown-item" href="#">Export</a>
+                                                    href="{{ route('admin.enrollment.category.manage') }}">New Record</a>
                                             </div>
                                         </div>
                                     </div>
@@ -65,35 +64,39 @@
                                     <table id="categoryTable" class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
-                                                <th>Image</th>
-                                                <th>Category Type</th>
-                                                <th>Category</th>
-                                                <th>Slug</th>
+                                                <th>Reference</th>
+                                                <th>Title</th>
+                                                <th>Main Category</th>
+                                                <th>Sub Category</th>
+                                                <th>Regular Price</th>
+                                                <th>Sale Price</th>
                                                 <th>Status</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse ($categories as $category)
+                                            @forelse ($data as $rec)
                                                 <tr>
-                                                    <td class="text-center"><img class="table-img" src="{{ ($category->image)?asset('uploads/category/'.$category->image):asset('default.png') }}" alt=""></td>
-                                                    <td>{{ config('categoryTypes.' . $category->type) }}</td>
-                                                    <td>{{ $category->name }}</td>
-                                                    <td>{!! $category->slug ? '~ ' . $category->slug : '<span class="badge badge-sm badge-secondary">No Slug</span>' !!}</td>
+                                                    <td>#{{ str_pad($rec->id,5,STR_PAD_RIGHT) }}</td>
+                                                    <td>{{ $rec->title }}</td>
+                                                    <td>{{ $rec->mainCategory->name }}</td>
+                                                    <td>{{ $rec->subCategory->name }}</td>
+                                                    <td>{{ format_currency($rec->regular_price) }}</td>
+                                                    <td>{{ format_currency($rec->sale_price) }}</td>
                                                     <td><span
-                                                            class="badge badge-sm badge-{{ config('statusColor.' . strtolower($category->status)) }}">{{ $category->status }}</span>
+                                                            class="badge badge-sm badge-{{ config('statusColor.' . strtolower($rec->status)) }}">{{ $rec->status }}</span>
                                                     </td>
                                                     <td>
                                                         <div class="form-inline">
                                                             <form method="GET"
-                                                                action="{{ route('admin.enrollment.category.manage') }}">
+                                                                action="{{ route('admin.ad.approve') }}">
                                                                 <input type="hidden" name="record_id"
-                                                                    value="{{ $category->id }}">
+                                                                    value="{{ base64_encode($rec->id) }}">
                                                                 <button type="submit"
-                                                                    class="mx-2 btn btn-sm btn-warning text-white">Edit</button>
+                                                                    class="mx-2 btn btn-sm btn-warning text-white">Approve</button>
                                                             </form>
 
-                                                            <a href="{{ route('admin.enrollment.category.delete', base64_encode($category->id) ) }}"
+                                                            <a href="{{ route('admin.ad.delete', base64_encode($rec->id) ) }}"
                                                                 class="mx-2 btn btn-sm btn-danger text-white">Delete</a>
                                                         </div>
                                                     </td>
@@ -120,11 +123,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4 pt-1">
-                                        <p>Showing {{ $categories->firstItem() }}-{{ $categories->count() }} of
-                                            {{ $categories->total() }}</p>
+                                        <p>Showing {{ $data->firstItem() }}-{{ $data->count() }} of
+                                            {{ $data->total() }}</p>
                                     </div>
                                     <div class="col-md-8 d-flex flex-row-reverse">
-                                        {{ $categories->links() }}
+                                        {{ $data->links() }}
                                     </div>
                                 </div>
                             </div>

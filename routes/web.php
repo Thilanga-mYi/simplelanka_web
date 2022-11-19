@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AdMainCategoriesController;
+use App\Http\Controllers\Admin\AD\AdminADController;
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Shop\AdminShopController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
@@ -28,8 +30,28 @@ Route::prefix('/control/admin')->middleware(['auth', 'admin'])->group(function (
         Route::prefix('/category')->group(function () {
             Route::get('/', [CategoryController::class, 'index'])->name('admin.enrollment.category');
             Route::get('/manage', [CategoryController::class, 'manage'])->name('admin.enrollment.category.manage');
-            Route::post('/add', [CategoryController::class, 'add'])->name('admin.enrollment.category.add');
+            Route::post('/enroll', [CategoryController::class, 'enroll'])->name('admin.enrollment.category.add');
+            Route::get('/delete/{id}', [CategoryController::class, 'delete'])->name('admin.enrollment.category.delete');
         });
+
+        Route::prefix('/sub-category')->group(function () {
+            Route::get('/', [CategoryController::class, 'index'])->name('admin.enrollment.sub-category');
+            Route::get('/manage', [CategoryController::class, 'manage'])->name('admin.enrollment.sub-category.manage');
+            Route::post('/enroll', [CategoryController::class, 'enroll'])->name('admin.enrollment.sub-category.add');
+            Route::get('/delete/{id}', [CategoryController::class, 'delete'])->name('admin.enrollment.sub-category.delete');
+        });
+    });
+
+    Route::prefix('/shop')->group(function () {
+        Route::get('/', [AdminShopController::class, 'index'])->name('admin.shop');
+        Route::get('/approve', [AdminShopController::class, 'approve'])->name('admin.shop.approve');
+        Route::get('/delete/{id}', [AdminShopController::class, 'delete'])->name('admin.shop.delete');
+    });
+
+    Route::prefix('/ad')->group(function () {
+        Route::get('/', [AdminADController::class, 'index'])->name('admin.ad');
+        Route::get('/approve', [AdminADController::class, 'approve'])->name('admin.ad.approve');
+        Route::get('/delete/{id}', [AdminADController::class, 'delete'])->name('admin.ad.delete');
     });
 });
 
