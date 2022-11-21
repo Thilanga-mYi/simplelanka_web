@@ -48,6 +48,13 @@
                                 <p>Main Categories</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.enrollment.sub-category') }}"
+                                class="nav-link {{ route('admin.enrollment.sub-category') == Request::url() || route('admin.enrollment.sub-category.manage') == Request::url()  ? 'active' : '' }}">
+                                <i class="fa fa-bars nav-icon"></i>
+                                <p>Sub Categories</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item">
