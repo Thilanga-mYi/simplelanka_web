@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdMainCategoriesController;
 use App\Http\Controllers\Admin\AD\AdminADController;
+use App\Http\Controllers\Admin\Category\AdminSubCategoryController;
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Shop\AdminShopController;
@@ -35,10 +36,10 @@ Route::prefix('/control/admin')->middleware(['auth', 'admin'])->group(function (
         });
 
         Route::prefix('/sub-category')->group(function () {
-            Route::get('/', [CategoryController::class, 'index'])->name('admin.enrollment.sub-category');
-            Route::get('/manage', [CategoryController::class, 'manage'])->name('admin.enrollment.sub-category.manage');
-            Route::post('/enroll', [CategoryController::class, 'enroll'])->name('admin.enrollment.sub-category.add');
-            Route::get('/delete/{id}', [CategoryController::class, 'delete'])->name('admin.enrollment.sub-category.delete');
+            Route::get('/', [AdminSubCategoryController::class, 'index'])->name('admin.enrollment.sub-category');
+            Route::get('/manage', [AdminSubCategoryController::class, 'manage'])->name('admin.enrollment.sub-category.manage');
+            Route::post('/enroll', [AdminSubCategoryController::class, 'enroll'])->name('admin.enrollment.sub-category.add');
+            Route::get('/delete/{id}', [AdminSubCategoryController::class, 'delete'])->name('admin.enrollment.sub-category.delete');
         });
     });
 

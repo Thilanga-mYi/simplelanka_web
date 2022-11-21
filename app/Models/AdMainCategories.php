@@ -27,4 +27,9 @@ class AdMainCategories extends Model
     {
         return self::where('status', '!=', 3);
     }
+
+    public static function getActive()
+    {
+        return self::where('status', 1);
+    }
 }
